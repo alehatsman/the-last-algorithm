@@ -7,6 +7,7 @@ interface Node<T> {
 export default class DoublyLinkedList<T> {
   public length: number;
   private head?: Node<T>;
+  private tail?: Node<T>;
 
   constructor() {
     this.length = 0;
@@ -53,16 +54,17 @@ export default class DoublyLinkedList<T> {
     };
     if (!this.head) {
       this.head = node;
+      this.tail = node;
       this.length += 1;
       return;
     }
-    let cur = this.head;
-    while (cur.next) {
-      cur = cur.next;
+
+    if (this.tail) {
+      node.prev = this.tail;
+      this.tail.next = node;
+      this.tail = node;
+      this.length += 1;
     }
-    cur.next = node;
-    node.prev = cur;
-    this.length += 1;
   }
 
   remove(item: T): T | undefined {
@@ -82,6 +84,10 @@ export default class DoublyLinkedList<T> {
 
         if (next) {
           next.prev = prev;
+        }
+
+        if (cur == this.tail) {
+          this.tail = cur.prev;
         }
 
         this.length -= 1;
@@ -140,6 +146,10 @@ export default class DoublyLinkedList<T> {
 
     if (next) {
       next.prev = prev;
+    }
+
+    if (cur == this.tail) {
+      this.tail = cur.prev;
     }
 
     this.length -= 1;
