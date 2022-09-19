@@ -5,6 +5,7 @@ export function test_list(list: List<number>): void {
 
   expect(list.get(2)).toEqual(9);
   expect(list.removeAt(1)).toEqual(7);
+  expect(list.get(1)).toEqual(9);
   expect(list.length).toEqual(2);
 
   list.append(11);
