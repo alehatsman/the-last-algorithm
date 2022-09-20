@@ -1,7 +1,7 @@
 import RingBuffer from "@code/RingBuffer";
 
 test("RingBuffer", function () {
-  const buffer = new RingBuffer<number>();
+  const buffer = new RingBuffer<number>(16);
 
   buffer.push(5);
   expect(buffer.pop()).toEqual(5);
