@@ -12,10 +12,16 @@ export default class RingBuffer<T> {
   }
 
   push(item: T) {
+    if (this.tail - this.head + 1 === this.capacity) {
+      return;
+    }
     this.buffer[++this.tail % this.capacity] = item;
   }
 
   pop(): T | undefined {
+    if (this.tail < this.head) {
+      return;
+    }
     const currentIndex = this.head % this.capacity;
     const element = this.buffer[currentIndex];
     if (element) {
