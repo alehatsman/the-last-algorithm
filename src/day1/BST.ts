@@ -45,7 +45,7 @@ function lift(node: BinaryNode<number>, nodeToDelete: BinaryNode<number>) {
     return node;
   } else {
     nodeToDelete.value = node.value;
-    return node.right;
+    return node?.right;
   }
 }
 
@@ -66,17 +66,15 @@ function deleteValue(
   } else if (value === node.value) {
     if (!node.left && !node.right) {
       return null;
-    }
-    if (!node.left || !node.right) {
+    } else if (!node.left || !node.right) {
       return node.left || node.right;
-    }
-    if (node.left && node.right) {
+    } else {
       node.right = lift(node.right, node);
       return node;
     }
+  } else {
+    return node;
   }
-
-  return node;
 }
 
 export class BinarySearchTree {
